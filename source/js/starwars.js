@@ -7,6 +7,13 @@ var lives = 3,
     'slave': 15,
     'xwing': 20
   },
+  speeds = {
+    'millenium_falcon': 5,
+    'infilter': 1,
+    'jedi': 2,
+    'slave': 3,
+    'xwing': 4
+  },
   spacecrafts = [
     'infilter',
     'jedi',
@@ -17,6 +24,8 @@ var lives = 3,
   spacecraft_height = 150,
   $falcon = null,
   SPEED = 1,
+  NEXT_SPEED = 300,
+  LEVEL = 1,
   falcon_tperiod = 0,
   max_spacecrafts = 7,
   finished = false;
@@ -40,11 +49,11 @@ function moveFalcon() {
   if (!$falcon.data("destroyed") && $falcon.position().left < $('body').width()) {
     setTimeout(function() {
       $falcon.css({
-        left: $falcon.position().left + SPEED*3 + 'px',
+        left: $falcon.position().left + SPEED*speeds.millenium_falcon + 'px',
         top: $falcon.position().top + sinusoidal() + 'px'
       });
       moveFalcon();
-    }, 10);
+    }, 20);
   } else {
     if (!$falcon.data("destroyed")) {
       deleteFalcon();
@@ -76,13 +85,18 @@ function destroyed($spacecraft) {
     else {
       resetSpacecraft($spacecraft);
     }
-  }, 1000);
+  }, 500);
 }
 
 function addScore(score) {
   $score = $('#score span');
-  current = parseInt($score.html());
-  $score.html(current + score);
+  current = parseInt($score.html()) + score;
+  $score.html(current);
+  if(current/NEXT_SPEED > LEVEL) {
+    falcon();
+    LEVEL++;
+    SPEED++;
+  }
 }
 
 function createSpacecraft() {
@@ -91,6 +105,7 @@ function createSpacecraft() {
   $spacecraft.attr('src', 'img/' + type + '.png');
   $spacecraft.appendTo($('body'));
   $spacecraft.data("score", score[type]);
+  $spacecraft.data("speed", speeds[type]);
   $spacecraft.data("destroyed", false);
   var width = screen.width;
   $spacecraft.css({
@@ -106,6 +121,7 @@ function resetSpacecraft($spacecraft) {
   $spacecraft.attr('src', 'img/' + type + '.png');
   $spacecraft.data("score", score[type]);
   $spacecraft.data("destroyed", false);
+  $spacecraft.data("speed", speeds[type]);
   var width = screen.width;
   var height = screen.height;
   $spacecraft.css({
@@ -119,10 +135,10 @@ function moveSpacecraft($spacecraft) {
   if (!$spacecraft.data("destroyed") && $spacecraft.position().top > -spacecraft_height) {
     setTimeout(function() {
       $spacecraft.css({
-        top: parseInt($spacecraft.position().top - SPEED) + 'px'
+        top: parseInt($spacecraft.position().top - (SPEED*$spacecraft.data("speed"))) + 'px'
       });
       moveSpacecraft($spacecraft);
-    }, 30);
+    }, 60);
   } else {
     if (!$spacecraft.data("destroyed")) {
       loseLife();
@@ -151,6 +167,7 @@ function reset() {
   finished = false;
   $('#lives li').removeClass('grey');
   SPEED = 1;
+  LEVEL = 1;
   $.each(array_spacecraft, function(index, $spacecraft) {
     $spacecraft = resetSpacecraft($spacecraft);
   });
