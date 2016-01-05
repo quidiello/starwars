@@ -67,7 +67,7 @@ function sinusoidal() {
   } else {
     falcon_tperiod = 0;
   }
-  return 2 * Math.sin(falcon_tperiod);
+  return 4 * SPEED * Math.sin(SPEED*4*falcon_tperiod);
 }
 
 function deleteFalcon() {
