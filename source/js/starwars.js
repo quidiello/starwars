@@ -97,6 +97,8 @@ function createSpacecraft() {
     left: myRandom(150, width - 150)
   });
   moveSpacecraft($spacecraft);
+
+  return $spacecraft;
 }
 
 function resetSpacecraft($spacecraft) {
@@ -117,15 +119,14 @@ function moveSpacecraft($spacecraft) {
   if (!$spacecraft.data("destroyed") && $spacecraft.position().top > -spacecraft_height) {
     setTimeout(function() {
       $spacecraft.css({
-        top: $spacecraft.position().top - SPEED + 'px'
+        top: parseInt($spacecraft.position().top - SPEED) + 'px'
       });
       moveSpacecraft($spacecraft);
-    }, 10);
+    }, 30);
   } else {
     if (!$spacecraft.data("destroyed")) {
       loseLife();
-      $spacecraft.remove();
-      $spacecraft = createSpacecraft();
+      $spacecraft = resetSpacecraft($spacecraft);
     }
   }
 }
@@ -134,17 +135,49 @@ function loseLife() {
   $('#lives li:nth-child(' + lives + ')').addClass('grey');
   lives--;
   if (lives === 0) {
-    finished = true;
-    // mostrar
+    game_over();
   }
 }
 
+function game_over() {
+  finished = true;
+  $('#game_over').addClass('table');
+}
 
+function reset() {
+  $('#game_over').removeClass('table');
+  $('#score span').html(0);
+  lives = 3;
+  finished = false;
+  $('#lives li').removeClass('grey');
+  SPEED = 1;
+  $.each(array_spacecraft, function(index, $spacecraft) {
+    $spacecraft = resetSpacecraft($spacecraft);
+  });
+}
+
+function start() {
+  $('#start_game').addClass('none');
+  falcon();
+  for (var i = 0; i < max_spacecrafts; i++) {
+    array_spacecraft.push(createSpacecraft());
+  }
+}
 
 
 function myRandom(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+$('#game_over a').on('click', function(e) {
+  e.preventDefault();
+  reset();
+});
+
+$('#start_game a').on('click', function(e) {
+  e.preventDefault();
+  start();
+});
 
 $(document).on('click', '.falcon', function() {
   if (!finished) {
@@ -157,12 +190,5 @@ $(document).on('click', '.spacecraft', function() {
   if (!finished) {
     addScore($(this).data("score"));
     destroyed($(this));
-  }
-});
-
-$(function() {
-  falcon();
-  for (var i = 0; i < max_spacecrafts; i++) {
-    array_spacecraft.push(createSpacecraft());
   }
 });

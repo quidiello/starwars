@@ -1,14 +1,16 @@
 @font-face {
   font-family: jedi;
-  src: url(../fonts/star_jedi/Starjedi.ttf); }
+  src: url("../fonts/star_jedi/Starjedi.ttf"); }
 
 html, body {
   height: 100%;
-  width: 100%; }
+  width: 100%;
+  margin: 0;
+  padding: 0; }
 
 body {
   color: #fbf003;
-  font-family: "jedi" sans-serif;
+  font-family: "jedi", sans-serif;
   font-size: 34px;
   background: url("../img/background.jpg");
   -webkit-user-select: none;
@@ -38,6 +40,48 @@ body {
 .grey {
   -webkit-filter: grayscale(70%);
           filter: grayscale(70%); }
+
+.none {
+  display: none !important; }
+
+.table {
+  display: table !important; }
+
+#game_over {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 1000;
+  display: none; }
+  #game_over div {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center; }
+    #game_over div span {
+      font-size: 80px; }
+    #game_over div a {
+      text-decoration: none;
+      font-size: 30px;
+      color: #fbf003; }
+
+#start_game {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 1000;
+  display: table; }
+  #start_game div {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center; }
+    #start_game div span {
+      font-size: 80px; }
+    #start_game div a {
+      text-decoration: none;
+      font-size: 30px;
+      color: #fbf003; }
 
 .spacecraft {
   background-size: contain;

@@ -1,11 +1,13 @@
 html, body {
   height: 100%;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   color: $primaryColor;
-  font-family: "jedi" sans-serif;
+  font-family: "jedi", sans-serif;
   font-size: 34px;
   background: url("../img/background.jpg");
   user-select: none;
@@ -37,4 +39,12 @@ body {
 
 .grey {
   filter: grayscale(70%);
+}
+
+.none {
+  display: none !important;
+}
+
+.table {
+  display: table !important; 
 }

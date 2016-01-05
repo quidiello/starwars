@@ -1,0 +1,21 @@
+#start_game {
+  width: 100%;
+  height: 100%;
+  background: $backgroundModal;
+  position: fixed;
+  z-index: 1000;
+  display: table;
+  div {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    span {
+      font-size: 80px;
+    }
+    a {
+      text-decoration: none;
+      font-size: 30px;
+      color: $primaryColor;
+    }
+  }
+}
