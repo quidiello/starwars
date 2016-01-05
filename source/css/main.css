@@ -1,6 +1,6 @@
 @font-face {
   font-family: jedi;
-  src: url(../fonts/star_jedi/Starjedi.ttf); }
+  src: url("../fonts/star_jedi/Starjedi.ttf"); }
 
 html, body {
   height: 100%;
@@ -34,3 +34,15 @@ body {
       display: inline-block; }
       #lives ul li img {
         width: 44px; }
+
+.spacecraft {
+  background-size: contain;
+  cursor: pointer;
+  position: absolute;
+  bottom: -150px; }
+
+.falcon {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  left: -150px; }
