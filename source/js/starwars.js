@@ -1,14 +1,22 @@
 var lives = 3,
   array_spacecraft = [],
   score = {
-    'falcon': 100,
+    'millenium_falcon': 100,
     'infilter': 5,
     'jedi': 10,
     'slave': 15,
     'xwing': 20
   },
+  spacecrafts = [
+    'millenium_falcon',
+    'infilter',
+    'jedi',
+    'slave',
+    'xwing'
+  ],
   falcon_width = 150,
   $falcon = null,
+  falcon_tperiod = 0,
   finished = false;
 
 /* create falcon */
@@ -16,8 +24,9 @@ function falcon() {
   $falcon = $('<img class="falcon" width=' + falcon_width + '>');
   $falcon.appendTo($('body'));
   $falcon.attr('src', "img/millenium_falcon.png");
-  $falcon.data("score", score.falcon);
+  $falcon.data("score", score.millenium_falcon);
   $falcon.data("destroyed", false);
+  falcon_tperiod = 0;
   moveFalcon();
 }
 
@@ -25,7 +34,8 @@ function moveFalcon() {
   if ($falcon.position().left < $('body').width() && !$falcon.data("destroyed")) {
     setTimeout(function() {
       $falcon.css({
-        left: $falcon.position().left + 1
+        left: $falcon.position().left + 1 + 'px',
+        top: $falcon.position().top + senoidal() + 'px'
       });
       moveFalcon();
     }, 10);
@@ -34,6 +44,16 @@ function moveFalcon() {
       deleteFalcon();
     }
   }
+}
+
+function senoidal() {console.log(falcon_tperiod);
+  if(falcon_tperiod <= 2*Math.PI) {
+    falcon_tperiod += 0.02;
+  }
+  else {
+    falcon_tperiod = 0;
+  }
+  return 2*Math.sin(falcon_tperiod);
 }
 
 function deleteFalcon() {
