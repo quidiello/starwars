@@ -1,6 +1,6 @@
 .falcon {
   cursor: pointer;
   position: absolute;
-  top: 40%;
   left: -$falcon-width;
+  z-index: 999;
 }
