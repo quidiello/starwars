@@ -1,0 +1,36 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  color: $primaryColor;
+  font-family: "jedi" sans-serif;
+  font-size: 34px;
+  background: url("../img/background.jpg");
+  user-select: none;
+  overflow: hidden;
+  position: relative;
+}
+
+#score {
+  position: fixed;
+  left: 25px;
+  top: 25px;
+}
+
+#lives {
+  position: fixed;
+  right: 25px;
+  top: 25px;
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      display: inline-block;
+      img {
+        width: 44px;
+      }
+    }
+  }
+}
