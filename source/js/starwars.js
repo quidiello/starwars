@@ -32,7 +32,7 @@ var lives = 3,
 
 /* create falcon */
 function falcon() {
-  $falcon = $('<img class="falcon" width=' + falcon_width + '>');
+  $falcon = $('<img class="falcon" draggable="false" width=' + falcon_width + '>');
   $falcon.appendTo($('body'));
   $falcon.attr('src', "img/millenium_falcon.png");
   $falcon.data("score", score.millenium_falcon);
@@ -100,7 +100,7 @@ function addScore(score) {
 }
 
 function createSpacecraft() {
-  var $spacecraft = $('<img class="spacecraft" height=' + spacecraft_height + '>');
+  var $spacecraft = $('<img class="spacecraft" draggable="false" height=' + spacecraft_height + '>');
   var type = spacecrafts[myRandom(0, spacecrafts.length - 1)];
   $spacecraft.attr('src', 'img/' + type + '.png');
   $spacecraft.appendTo($('body'));
